@@ -1,33 +1,67 @@
 import React from 'react'
+import ReactTextFormat from 'react-text-format';
+import 'twin.macro'
 
-export default function JobsGrid({jobs, title}) {
-	const grouped = Object.values(jobs.nodes.reduce((c,v) => {
+const customLinkDecorator = (
+	decoratedHref,
+	decoratedText,
+	linkTarget
+) => {
+	return (
+		<a
+			href={decoratedHref}
+			tw="block"
+			target={linkTarget}
+			rel='noopener'
+			className='customLink'
+		>
+			{decoratedText}
+		</a>
+	)
+}
+
+export default function JobsGrid({jobs, title, noYear = false}) {
+
+	const grouped = !noYear ? Object.values(jobs.nodes.reduce((c,v) => {
 			c[v.year] = c[v.year] || [];
 			c[v.year].push(v);
 			return c;
-	}, {}))
+	}, {})) : null
 	
 	return (
 		<article className="sheet">
-		<div>{title}</div>
+		<div tw="border-t-2 border-b-2">{title}</div>
 		{
-			grouped.map((item, idx) => {
+			grouped ? grouped.map((item, idx) => {
 				return (
-					<div key={idx} style={{paddingBottom: '20px'}}>
+					<div key={idx} tw="pb-20">
+						<table key={idx} tw="min-w-full divide-y divide-gray-200">
+							<tbody tw="bg-white divide-y divide-gray-200 border-t-2 border-b-2">
 						{
 							item.map((job, idx) => (
-								<div key={idx} style={{display: 'flex', justifyContent: "space-between"}}>
-									<span>{idx === 0 && job.year}</span>
-									<span>{job.work}</span>
-									<span>{job?.place}</span>
-									<span>{job?.commission}</span>
-									<span>{job?.country}</span>
-								</div>)
+								<tr>
+									<td tw="px-3 py-4 whitespace-nowrap">
+										<div tw="w-10">
+											{idx === 0 && job.year}
+										</div>
+									</td>
+									<td tw="px-3 py-4 whitespace-nowrap">{job.work} {job?.place} {job?.commission}</td>
+									<td tw="px-3 py-4 whitespace-nowrap">{job?.country}</td>
+								</tr>)
 							)
 						}
+						</tbody>
+						</table>
 					</div>
 				)
-			})
+			}) :       
+			jobs.nodes.map((job, idx) => (
+				<p key={idx} tw="pb-5 border-t-2">
+				<ReactTextFormat linkDecorator={customLinkDecorator}>
+					{job.title}
+				</ReactTextFormat>
+				</p>
+			))
 		}
 		</article>
 	)

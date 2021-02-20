@@ -6,8 +6,8 @@ import { StaticQuery, graphql } from "gatsby";
 import { HelmetDatoCms } from "gatsby-source-datocms";
 import tw, {GlobalStyles} from 'twin.macro'
 
-const Header = tw.div`flex flex-row justify-center p-0 mb-20`
-const Sidebar = tw.div`flex flex-row justify-between w-full`
+const Header = tw.div`flex flex-row justify-start p-0 w-1/2`
+const Sidebar = tw.div`flex flex-row justify-between w-1/2 fixed`
 const Container = tw.div`flex flex-col`
 
 const TemplateWrapper = ({ children }) => {
@@ -53,11 +53,11 @@ const TemplateWrapper = ({ children }) => {
           />
           <Header>
             <Sidebar>
-              <ul tw="flex flex-row">
-                <li>
+              <ul tw="flex flex-row px-2">
+                <li tw="mr-5 underline">
                   <Link to="/">Home</Link>
                 </li>
-                <li>
+                <li tw="mr-5 underline">
                   <Link to="/about">CV</Link>
                 </li>
               </ul>

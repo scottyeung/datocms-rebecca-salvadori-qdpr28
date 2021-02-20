@@ -3,26 +3,21 @@ import { graphql } from 'gatsby'
 import { HelmetDatoCms } from 'gatsby-source-datocms'
 import Img from 'gatsby-image'
 import Layout from "../components/layout"
-import ReactTextFormat from 'react-text-format';
 import JobsGrid from '../components/JobsGrid'
+import 'twin.macro'
 
 const About = ({ data: {about, features, screenings, shorts } }) => (
   <Layout>
-      <HelmetDatoCms seo={about.seoMetaTags} />
-      <article className="sheet">
-      <div>Features / Publications</div>
-      {
-        features.nodes.map((feature, idx) => (
-          <p key={idx} style={{paddingBottom: '20px'}}>
-          <ReactTextFormat>
-            {feature.title}
-          </ReactTextFormat>
-          </p>
-        ))
-      }
-    </article>
-    <JobsGrid jobs={screenings} title='Screenings / Installations / Exhibitions' />
-    <JobsGrid jobs={shorts} title="Selected Short Documentaries\nDirector | Editor" />
+    <HelmetDatoCms seo={about.seoMetaTags} />
+    <div tw="grid grid-cols-2 gap-4 bg-red-500">
+      <div tw="h-full overflow-hidden bg-white pt-10 px-2">
+      <JobsGrid jobs={features} title='Features / Publications' noYear />
+      <JobsGrid jobs={screenings} title='Screenings / Installations / Exhibitions' />
+      <JobsGrid jobs={shorts} title="Selected Short Documentaries\nDirector | Editor" />
+      </div>
+      <div>
+      </div>
+    </div>
   </Layout>
 )
 
