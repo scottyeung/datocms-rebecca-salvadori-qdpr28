@@ -6,7 +6,6 @@ import Layout from "../components/layout"
 import ReactTextFormat from 'react-text-format';
 import JobsGrid from '../components/JobsGrid'
 
-
 const About = ({ data: {about, features, screenings, shorts } }) => (
   <Layout>
       <HelmetDatoCms seo={about.seoMetaTags} />
