@@ -3,28 +3,29 @@ import { graphql } from 'gatsby'
 import { HelmetDatoCms } from 'gatsby-source-datocms'
 import Img from 'gatsby-image'
 import Layout from "../components/layout"
+import ReactTextFormat from 'react-text-format';
+import JobsGrid from '../components/JobsGrid'
 
-const About = ({ data: { features, screenings } }) => {
-  console.log(features, screenings)
+
+const About = ({ data }) => {
+  const { about, features, screenings } = data
 
   return (
   <Layout>
-    <article className="sheet">
-      {/* <HelmetDatoCms seo={about.seoMetaTags} />
-      <div className="sheet__inner">
-        <h1 className="sheet__title">{about.title}</h1>
-        <p className="sheet__lead">{about.subtitle}</p>
-        <div className="sheet__gallery">
-          <Img fluid={about.photo.fluid} />
-        </div>
-        <div
-          className="sheet__body"
-          dangerouslySetInnerHTML={{
-            __html: about.bioNode.childMarkdownRemark.html,
-          }}
-        />
-      </div> */}
+      <HelmetDatoCms seo={about.seoMetaTags} />
+      <article className="sheet">
+      <div>Features / Publications</div>
+      {
+        features.nodes.map(feature => (
+          <p style={{paddingBottom: '20px'}}>
+          <ReactTextFormat>
+            {feature.title}
+          </ReactTextFormat>
+          </p>
+        ))
+      }
     </article>
+    <JobsGrid jobs={screenings} />
   </Layout>
 )}
 
@@ -54,6 +55,11 @@ export default About
 
 export const query = graphql`
   query CvQuery {
+    about: datoCmsAboutPage {
+      seoMetaTags {
+          ...GatsbyDatoCmsSeoMetaTags
+      } 
+    }
     features: allDatoCmsFeature {
       nodes {
         title
@@ -64,9 +70,25 @@ export const query = graphql`
         year
         work
         place
+        country
       }
     }
   }
 `
 
 console.log(query)
+
+{/*
+<div className="sheet__inner">
+  <h1 className="sheet__title">{about.title}</h1>
+  <p className="sheet__lead">{about.subtitle}</p>
+  <div className="sheet__gallery">
+    <Img fluid={about.photo.fluid} />
+  </div>
+  <div
+    className="sheet__body"
+    dangerouslySetInnerHTML={{
+      __html: about.bioNode.childMarkdownRemark.html,
+    }}
+  />
+</div> */}
