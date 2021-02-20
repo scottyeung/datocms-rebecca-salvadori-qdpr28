@@ -7,17 +7,14 @@ import ReactTextFormat from 'react-text-format';
 import JobsGrid from '../components/JobsGrid'
 
 
-const About = ({ data }) => {
-  const { about, features, screenings, shorts } = data
-
-  return (
+const About = ({ data: {about, features, screenings, shorts } }) => (
   <Layout>
       <HelmetDatoCms seo={about.seoMetaTags} />
       <article className="sheet">
       <div>Features / Publications</div>
       {
-        features.nodes.map(feature => (
-          <p style={{paddingBottom: '20px'}}>
+        features.nodes.map((feature, idx) => (
+          <p key={idx} style={{paddingBottom: '20px'}}>
           <ReactTextFormat>
             {feature.title}
           </ReactTextFormat>
@@ -28,7 +25,7 @@ const About = ({ data }) => {
     <JobsGrid jobs={screenings} title='Screenings / Installations / Exhibitions' />
     <JobsGrid jobs={shorts} title="Selected Short Documentaries\nDirector | Editor" />
   </Layout>
-)}
+)
 
 export default About
 

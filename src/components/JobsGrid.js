@@ -16,7 +16,7 @@ export default function JobsGrid({jobs, title}) {
                     <div key={idx} style={{paddingBottom: '20px'}}>
                         {
                             item.map((job, idx) => (
-                                <div style={{display: 'flex', justifyContent: "space-between"}}>
+                                <div key={idx} style={{display: 'flex', justifyContent: "space-between"}}>
                                     <span>{idx === 0 && job.year}</span>
                                     <span>{job.work}</span>
                                     <span>{job?.place}</span>

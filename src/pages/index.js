@@ -6,13 +6,10 @@ import Layout from "../components/layout"
 
 const IndexPage = ({ data }) => (
   <Layout>
-    <Masonry className="showcase">
       {data.allDatoCmsWork.edges.map(({ node: work }) => (
         <div key={work.id} className="showcase__item">
           <figure className="card">
             <Link to={`/works/${work.slug}`} className="card__image">
-              <Img fluid={work.coverImage.fluid} />
-            </Link>
             <figcaption className="card__caption">
               <h6 className="card__title">
                 <Link to={`/works/${work.slug}`}>{work.title}</Link>
@@ -21,10 +18,10 @@ const IndexPage = ({ data }) => (
                 <p>{work.excerpt}</p>
               </div>
             </figcaption>
+            </Link>
           </figure>
         </div>
       ))}
-    </Masonry>
   </Layout>
 )
 

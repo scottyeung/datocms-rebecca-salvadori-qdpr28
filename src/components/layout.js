@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-has-content, jsx-a11y/anchor-is-valid*/
 
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { Link } from "gatsby";
 import { StaticQuery, graphql } from "gatsby";
 import { HelmetDatoCms } from "gatsby-source-datocms";
+import tw from 'twin.macro'
 
-import "../styles/index.sass";
+const Header = tw.div`flex flex-row justify-center h-full space-y-5 p-0`
+const Sidebar = tw.div`flex flex-row justify-center h-full space-y-5 fixed z-50`
 
 const TemplateWrapper = ({ children }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -44,13 +45,13 @@ const TemplateWrapper = ({ children }) => {
         }
       `}
       render={data => (
-        <div className={`container ${showMenu ? "is-open" : ""}`}>
-          <HelmetDatoCms
+      <div>
+        <HelmetDatoCms
             favicon={data.datoCmsSite.faviconMetaTags}
             seo={data.datoCmsHome.seoMetaTags}
           />
-          <div className="container__sidebar">
-            <div className="sidebar">
+          <Header>
+            <Sidebar>
               <h6 className="sidebar__title">
                 <Link to="/">{data.datoCmsSite.globalSeo.siteName}</Link>
               </h6>
@@ -84,8 +85,8 @@ const TemplateWrapper = ({ children }) => {
               <div className="sidebar__copyright">
                 {data.datoCmsHome.copyright}
               </div>
-            </div>
-          </div>
+            </Sidebar>
+          </Header>
           <div className="container__body">
             <div className="container__mobile-header">
               <div className="mobile-header">
@@ -108,10 +109,6 @@ const TemplateWrapper = ({ children }) => {
       )}
     />
   );
-};
-
-TemplateWrapper.propTypes = {
-  children: PropTypes.object
 };
 
 export default TemplateWrapper;
