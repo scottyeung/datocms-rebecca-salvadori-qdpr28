@@ -4,10 +4,13 @@ import { HelmetDatoCms } from 'gatsby-source-datocms'
 import Img from 'gatsby-image'
 import Layout from "../components/layout"
 
-const About = ({ data: { about } }) => (
+const About = ({ data: { features, screenings } }) => {
+  console.log(features, screenings)
+
+  return (
   <Layout>
     <article className="sheet">
-      <HelmetDatoCms seo={about.seoMetaTags} />
+      {/* <HelmetDatoCms seo={about.seoMetaTags} />
       <div className="sheet__inner">
         <h1 className="sheet__title">{about.title}</h1>
         <p className="sheet__lead">{about.subtitle}</p>
@@ -20,31 +23,50 @@ const About = ({ data: { about } }) => (
             __html: about.bioNode.childMarkdownRemark.html,
           }}
         />
-      </div>
+      </div> */}
     </article>
   </Layout>
-)
+)}
 
 export default About
 
+// export const query = graphql`
+//   query AboutQuery {
+//     about: datoCmsAboutPage {
+//       seoMetaTags {
+//         ...GatsbyDatoCmsSeoMetaTags
+//       }
+//       title
+//       subtitle
+//       photo {
+//         fluid(maxWidth: 600, imgixParams: { fm: "jpg", auto: "compress" }) {
+//           ...GatsbyDatoCmsSizes
+//         }
+//       }
+//       bioNode {
+//         childMarkdownRemark {
+//           html
+//         }
+//       }
+//     }
+//   }
+// `
+
 export const query = graphql`
-  query AboutQuery {
-    about: datoCmsAboutPage {
-      seoMetaTags {
-        ...GatsbyDatoCmsSeoMetaTags
+  query CvQuery {
+    features: allDatoCmsFeature {
+      nodes {
+        title
       }
-      title
-      subtitle
-      photo {
-        fluid(maxWidth: 600, imgixParams: { fm: "jpg", auto: "compress" }) {
-          ...GatsbyDatoCmsSizes
-        }
-      }
-      bioNode {
-        childMarkdownRemark {
-          html
-        }
+    }
+    screenings: allDatoCmsScreening {
+      nodes {
+        year
+        work
+        place
       }
     }
   }
 `
+
+console.log(query)
