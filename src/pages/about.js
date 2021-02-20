@@ -8,7 +8,7 @@ import JobsGrid from '../components/JobsGrid'
 
 
 const About = ({ data }) => {
-  const { about, features, screenings } = data
+  const { about, features, screenings, shorts } = data
 
   return (
   <Layout>
@@ -25,7 +25,8 @@ const About = ({ data }) => {
         ))
       }
     </article>
-    <JobsGrid jobs={screenings} />
+    <JobsGrid jobs={screenings} title='Screenings / Installations / Exhibitions' />
+    <JobsGrid jobs={shorts} title="Selected Short Documentaries\nDirector | Editor" />
   </Layout>
 )}
 
@@ -71,6 +72,13 @@ export const query = graphql`
         work
         place
         country
+      }
+    }
+    shorts: allDatoCmsSelectedShort {
+      nodes {
+        year
+        work
+        commission
       }
     }
   }

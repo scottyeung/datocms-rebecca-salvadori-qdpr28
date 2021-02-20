@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function JobsGrid({jobs}) {
+export default function JobsGrid({jobs, title}) {
     const grouped = Object.values(jobs.nodes.reduce((c,v) => {
         c[v.year] = c[v.year] || [];
         c[v.year].push(v);
@@ -9,7 +9,7 @@ export default function JobsGrid({jobs}) {
     
     return (
         <article className="sheet">
-        <div>Screenings / Installations / Exhibitions</div>
+        <div>{title}</div>
         {
             grouped.map((item, idx) => {
                 return (
@@ -19,7 +19,8 @@ export default function JobsGrid({jobs}) {
                                 <div style={{display: 'flex', justifyContent: "space-between"}}>
                                     <span>{idx === 0 && job.year}</span>
                                     <span>{job.work}</span>
-                                    <span>{job.place}</span>
+                                    <span>{job?.place}</span>
+                                    <span>{job?.commission}</span>
                                     <span>{job?.country}</span>
                                 </div>
                                 )
