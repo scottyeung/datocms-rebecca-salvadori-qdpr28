@@ -35,18 +35,27 @@ export default function JobsGrid({jobs, title, noYear = false}) {
 			grouped ? grouped.map((item, idx) => {
 				return (
 					<div key={idx} tw="pb-20">
-						<table key={idx} tw="min-w-full divide-y divide-gray-200">
+						<table key={idx} tw="min-w-full divide-y divide-gray-200 table-fixed">
+						<thead tw="opacity-0">
+							<tr>
+								<th tw="w-1/12"></th>
+								<th tw="w-1/2"></th>
+								<th tw="w-1/12"></th>
+							</tr>
+						</thead>
 							<tbody tw="bg-white divide-y divide-gray-200 border-t-2 border-b-2">
 						{
 							item.map((job, idx) => (
 								<tr>
-									<td tw="px-3 py-4 whitespace-nowrap">
+									<td>
 										<div tw="w-10">
 											{idx === 0 && job.year}
 										</div>
 									</td>
-									<td tw="px-3 py-4 whitespace-nowrap">{job.work} {job?.place} {job?.commission}</td>
-									<td tw="px-3 py-4 whitespace-nowrap">{job?.country}</td>
+									<td>
+										<div>{job.work} {job?.place} {job?.commission}</div>
+									</td>
+									<td>{job?.country}</td>
 								</tr>)
 							)
 						}
