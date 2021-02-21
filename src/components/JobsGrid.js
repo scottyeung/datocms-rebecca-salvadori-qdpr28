@@ -31,7 +31,7 @@ export default function JobsGrid({jobs, title, noYear = false}) {
 	return (
 		<article className="sheet">
 		{
-			grouped ? grouped.map((item, idx) => {
+			grouped ? grouped.reverse().map((item, idx) => {
 				return (
 					<div key={idx} tw="pb-2">
 						<table key={idx} tw="min-w-full divide-y divide-gray-400 table-fixed">
@@ -43,7 +43,7 @@ export default function JobsGrid({jobs, title, noYear = false}) {
 							</tr>
 						</thead>
 							<tbody tw="bg-white divide-y divide-gray-400 border-t-2 border-b-2">
-							{idx === 0 && (<tr tw="border-b-2 divide-gray-400">
+							{idx === 0 && (<tr tw="border-b border-gray-400">
 								<td>
 									<div tw="w-10">
 									</div>
