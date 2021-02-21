@@ -1,87 +1,94 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { graphql } from 'gatsby'
-import Img from 'gatsby-image'
-import ReactPlayer from 'react-player'
-
-import scrollTo from 'gatsby-plugin-smoothscroll';
-
+import { HelmetDatoCms } from 'gatsby-source-datocms'
 import Layout from "../components/layout"
-import tw, { css } from 'twin.macro'
-import styled from 'styled-components'
+import JobsGrid from '../components/JobsGrid'
+import 'twin.macro'
 
-export const StyledVideo = styled.div`
-  position: relative;
-`;
-
-const IndexPage = ({ data }) => {
-  const [currentPage, setCurrentPage] = useState(0);
-
-  return (
+const IndexPage = ({ data: {about, features, screenings, shorts } }) => (
   <Layout>
-    <div tw="grid grid-cols-2 bg-green-400">
+    <HelmetDatoCms seo={about.seoMetaTags} />
+    <div tw="grid grid-cols-2 bg-red-500">
       <div tw="h-screen overflow-scroll bg-white pt-10 px-2">
-      {data.allDatoCmsWork.edges.map(({ node: work }, idx) => (
-       <div key={idx} tw="cursor-pointer" onClick={()=>{
-          scrollTo('#top', 'start')
-          setCurrentPage(idx);
-        }
-       }>
-         {work.title}
-       </div>
-      ))}
+      <div tw="py-10">
+        email: <a href={`mailto:${about.eMail}`}>{about.eMail}</a> 
       </div>
-      <div css={[tw`h-screen overflow-scroll`, css`background-color: ${data.allDatoCmsWork.edges[currentPage].node.bgColor?.hex}`]}>
-        <div tw="w-auto h-auto" id="top">
-          <StyledVideo>
-            <ReactPlayer url={data.allDatoCmsWork.edges[currentPage].node?.url} />
-          </StyledVideo>
-          <div tw="pt-5 pl-5">
-            <p>
-              {data.allDatoCmsWork.edges[currentPage].node.title}
-              {data.allDatoCmsWork.edges[currentPage].node.duration}
-              {data.allDatoCmsWork.edges[currentPage].node.commissionedBy}
-              {data.allDatoCmsWork.edges[currentPage].node.description}
-            </p>
-          </div>
-          <Img fluid={data.allDatoCmsWork.edges[currentPage].node.coverImage.fluid} />
-          {data.allDatoCmsWork.edges[currentPage].node.gallery.map(({ fluid }) => (
-              <img alt={data.allDatoCmsWork.edges[currentPage].node.title} key={fluid.src} src={fluid.src} />
-          ))}
-        </div>
+      <JobsGrid jobs={features} title='Features / Publications' noYear />
+      <JobsGrid jobs={screenings} title='Screenings / Installations / Exhibitions' />
+      <JobsGrid jobs={shorts} title={"Selected Short Documentaries\nDirector | Editor"} />
+      </div>
+      <div>
       </div>
     </div>
   </Layout>
-)}
+)
 
 export default IndexPage
 
+// export const query = graphql`
+//   query AboutQuery {
+//     about: datoCmsAboutPage {
+//       seoMetaTags {
+//         ...GatsbyDatoCmsSeoMetaTags
+//       }
+//       title
+//       subtitle
+//       photo {
+//         fluid(maxWidth: 600, imgixParams: { fm: "jpg", auto: "compress" }) {
+//           ...GatsbyDatoCmsSizes
+//         }
+//       }
+//       bioNode {
+//         childMarkdownRemark {
+//           html
+//         }
+//       }
+//     }
+//   }
+// `
+
 export const query = graphql`
   query IndexQuery {
-    allDatoCmsWork(sort: { fields: [position], order: ASC }) {
-      edges {
-        node {
-          id
-          title
-          duration
-          commissionedBy
-          url
-          bgColor {
-            hex
-          }
-          gallery {
-            fluid(maxWidth: 200, imgixParams: { fm: "jpg", auto: "compress" }) {
-              src
-            }
-          }
-          slug
-          excerpt
-          coverImage {
-            fluid(maxWidth: 450, imgixParams: { fm: "jpg", auto: "compress" }) {
-              ...GatsbyDatoCmsSizes
-            }
-          }
-        }
+    about: datoCmsAboutPage {
+      seoMetaTags {
+          ...GatsbyDatoCmsSeoMetaTags
+      } 
+      eMail
+    }
+    features: allDatoCmsFeature {
+      nodes {
+        title
+      }
+    }
+    screenings: allDatoCmsScreening {
+      nodes {
+        year
+        work
+        place
+        country
+      }
+    }
+    shorts: allDatoCmsSelectedShort {
+      nodes {
+        year
+        work
+        commission
       }
     }
   }
 `
+
+{/*
+<div className="sheet__inner">
+  <h1 className="sheet__title">{about.title}</h1>
+  <p className="sheet__lead">{about.subtitle}</p>
+  <div className="sheet__gallery">
+    <Img fluid={about.photo.fluid} />
+  </div>
+  <div
+    className="sheet__body"
+    dangerouslySetInnerHTML={{
+      __html: about.bioNode.childMarkdownRemark.html,
+    }}
+  />
+</div> */}

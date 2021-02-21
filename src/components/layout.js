@@ -63,10 +63,10 @@ const TemplateWrapper = ({ children }) => {
             <Sidebar>
               <ul tw="flex flex-row px-2">
                 <li tw="mr-5 underline">
-                  <Link to="/">Home</Link>
+                  <Link to="/works">Works</Link>
                 </li>
                 <li tw="mr-5 underline">
-                  <Link to="/about">CV</Link>
+                  <Link to="/">CV</Link>
                 </li>
               </ul>
             </Sidebar>
