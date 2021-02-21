@@ -10,7 +10,7 @@ const About = ({ data: {about, features, screenings, shorts } }) => (
   <Layout>
     <HelmetDatoCms seo={about.seoMetaTags} />
     <div tw="grid grid-cols-2 gap-4 bg-red-500">
-      <div tw="h-full overflow-hidden bg-white pt-10 px-2">
+      <div tw="h-screen overflow-scroll bg-white pt-10 px-2">
       <JobsGrid jobs={features} title='Features / Publications' noYear />
       <JobsGrid jobs={screenings} title='Screenings / Installations / Exhibitions' />
       <JobsGrid jobs={shorts} title="Selected Short Documentaries\nDirector | Editor" />

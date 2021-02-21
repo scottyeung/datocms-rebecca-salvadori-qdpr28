@@ -4,11 +4,18 @@ import React, { useState } from "react";
 import { Link } from "gatsby";
 import { StaticQuery, graphql } from "gatsby";
 import { HelmetDatoCms } from "gatsby-source-datocms";
-import tw, {GlobalStyles} from 'twin.macro'
+import { createGlobalStyle } from "styled-components";
+import tw, { GlobalStyles } from 'twin.macro'
 
 const Header = tw.div`flex flex-row justify-start p-0 w-1/2`
 const Sidebar = tw.div`flex flex-row justify-between w-1/2 fixed`
 const Container = tw.div`flex flex-col`
+
+const CustomGlobalStyles = createGlobalStyle`
+  body {
+    ${tw`overflow-hidden`}
+  }
+`;
 
 const TemplateWrapper = ({ children }) => {
   return (
@@ -47,6 +54,7 @@ const TemplateWrapper = ({ children }) => {
       render={data => (
       <div>
         <GlobalStyles />
+        <CustomGlobalStyles />
         <HelmetDatoCms
             favicon={data.datoCmsSite.faviconMetaTags}
             seo={data.datoCmsHome.seoMetaTags}
