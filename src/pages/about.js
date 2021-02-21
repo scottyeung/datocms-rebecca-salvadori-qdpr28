@@ -1,7 +1,6 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { HelmetDatoCms } from 'gatsby-source-datocms'
-import Img from 'gatsby-image'
 import Layout from "../components/layout"
 import JobsGrid from '../components/JobsGrid'
 import 'twin.macro'
@@ -9,11 +8,14 @@ import 'twin.macro'
 const About = ({ data: {about, features, screenings, shorts } }) => (
   <Layout>
     <HelmetDatoCms seo={about.seoMetaTags} />
-    <div tw="grid grid-cols-2 gap-4 bg-red-500">
+    <div tw="grid grid-cols-2 bg-red-500">
       <div tw="h-screen overflow-scroll bg-white pt-10 px-2">
+      <div tw="py-10">
+        email: <a href={`mailto:${about.eMail}`}>{about.eMail}</a> 
+      </div>
       <JobsGrid jobs={features} title='Features / Publications' noYear />
       <JobsGrid jobs={screenings} title='Screenings / Installations / Exhibitions' />
-      <JobsGrid jobs={shorts} title="Selected Short Documentaries\nDirector | Editor" />
+      <JobsGrid jobs={shorts} title={"Selected Short Documentaries\nDirector | Editor"} />
       </div>
       <div>
       </div>
@@ -51,6 +53,7 @@ export const query = graphql`
       seoMetaTags {
           ...GatsbyDatoCmsSeoMetaTags
       } 
+      eMail
     }
     features: allDatoCmsFeature {
       nodes {

@@ -13,7 +13,7 @@ const Container = tw.div`flex flex-col`
 
 const CustomGlobalStyles = createGlobalStyle`
   body {
-    ${tw`overflow-hidden`}
+    ${tw`overflow-hidden border-gray-900`}
   }
 `;
 

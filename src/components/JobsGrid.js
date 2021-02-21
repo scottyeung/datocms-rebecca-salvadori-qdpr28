@@ -30,20 +30,29 @@ export default function JobsGrid({jobs, title, noYear = false}) {
 	
 	return (
 		<article className="sheet">
-		<div tw="border-t-2 border-b-2">{title}</div>
 		{
 			grouped ? grouped.map((item, idx) => {
 				return (
 					<div key={idx} tw="pb-20">
-						<table key={idx} tw="min-w-full divide-y divide-gray-200 table-fixed">
-						<thead tw="opacity-0">
-							<tr>
+						<table key={idx} tw="min-w-full divide-y divide-gray-400 table-fixed">
+						<thead>
+							<tr tw="opacity-0">
 								<th tw="w-1/12"></th>
 								<th tw="w-1/2"></th>
 								<th tw="w-1/12"></th>
 							</tr>
 						</thead>
-							<tbody tw="bg-white divide-y divide-gray-200 border-t-2 border-b-2">
+							<tbody tw="bg-white divide-y divide-gray-400 border-t-2 border-b-2">
+							{idx === 0 && (<tr>
+								<td>
+									<div tw="w-10">
+									</div>
+								</td>
+								<td tw="py-10 whitespace-pre-wrap">
+								{title}
+								</td>
+								<td></td>
+							</tr>)}
 						{
 							item.map((job, idx) => (
 								<tr>
@@ -63,14 +72,48 @@ export default function JobsGrid({jobs, title, noYear = false}) {
 						</table>
 					</div>
 				)
-			}) :       
-			jobs.nodes.map((job, idx) => (
-				<p key={idx} tw="pb-5 border-t-2">
-				<ReactTextFormat linkDecorator={customLinkDecorator}>
-					{job.title}
-				</ReactTextFormat>
-				</p>
-			))
+			}) : (
+				<>
+				<table tw="min-w-full divide-y divide-gray-400 table-fixed">
+				<thead>
+					<tr tw="opacity-0">
+						<th tw="w-1/12"></th>
+						<th tw="w-1/2"></th>
+						<th tw="w-1/12"></th>
+					</tr>
+				</thead>
+				<tbody tw="bg-white divide-y divide-gray-400 border-t-2 border-b-2">
+					<tr>
+						<td>
+							<div tw="w-10">
+							</div>
+						</td>
+						<td tw="py-10">
+						{title}
+						</td>
+						<td></td>
+					</tr>
+				{jobs.nodes.map((job, idx) => (
+					<tr>
+					<td>
+						<div tw="w-10">
+							{idx === 0 && job.year}
+						</div>
+					</td>
+					<td>
+						<div>
+						<ReactTextFormat linkDecorator={customLinkDecorator}>
+							{job.title}
+						</ReactTextFormat>
+						</div>
+					</td>
+					<td></td>
+				</tr>
+				))}
+				</tbody>
+				</table>
+				</>
+			)
 		}
 		</article>
 	)

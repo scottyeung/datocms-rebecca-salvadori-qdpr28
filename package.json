@@ -19,6 +19,7 @@
     "react-dom": "^16.14.0",
     "react-helmet": "^5.2.0",
     "react-masonry-component": "^6.2.1",
+    "react-player": "^2.9.0",
     "react-slick": "^0.25.2",
     "react-text-format": "^2.0.28",
     "request": "^2.88.2",

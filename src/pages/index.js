@@ -1,27 +1,35 @@
-import React from 'react'
-import { Link, graphql } from 'gatsby'
-import Layout from "../components/layout"
+import React, { useState } from 'react'
+import { graphql } from 'gatsby'
+import Img from 'gatsby-image'
 
-const IndexPage = ({ data }) => (
+import Layout from "../components/layout"
+import 'twin.macro'
+
+const IndexPage = ({ data }) => {
+  const [currentPage, setCurrentPage] = useState(0);
+
+  return (
   <Layout>
-    {data.allDatoCmsWork.edges.map(({ node: work }) => (
-      <div key={work.id} className="showcase__item">
-        <figure className="card">
-          <Link to={`/works/${work.slug}`} className="card__image">
-          <figcaption className="card__caption">
-            <h6 className="card__title">
-              <Link to={`/works/${work.slug}`}>{work.title}</Link>
-            </h6>
-            <div className="card__description">
-              <p>{work.excerpt}</p>
-            </div>
-          </figcaption>
-          </Link>
-        </figure>
+    <div tw="grid grid-cols-2 bg-green-400">
+      <div tw="h-screen overflow-scroll bg-white pt-10 px-2">
+      {data.allDatoCmsWork.edges.map(({ node: work }, idx) => (
+       <div key={idx} tw="cursor-pointer" onClick={()=>setCurrentPage(idx)}>
+         {work.title}
+       </div>
+      ))}
       </div>
-    ))}
+      <div tw="h-screen overflow-scroll">
+        <div tw="w-auto h-auto">
+          {data.allDatoCmsWork.edges[currentPage].node.title}
+          <Img fluid={data.allDatoCmsWork.edges[currentPage].node.coverImage.fluid} />
+          <Img fluid={data.allDatoCmsWork.edges[currentPage].node.coverImage.fluid} />
+          <Img fluid={data.allDatoCmsWork.edges[currentPage].node.coverImage.fluid} />
+          <Img fluid={data.allDatoCmsWork.edges[currentPage].node.coverImage.fluid} />
+        </div>
+      </div>
+    </div>
   </Layout>
-)
+)}
 
 export default IndexPage
 
