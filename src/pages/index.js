@@ -6,7 +6,12 @@ import ReactPlayer from 'react-player'
 import scrollTo from 'gatsby-plugin-smoothscroll';
 
 import Layout from "../components/layout"
-import 'twin.macro'
+import tw, { css } from 'twin.macro'
+import styled from 'styled-components'
+
+export const StyledVideo = styled.div`
+  position: relative;
+`;
 
 const IndexPage = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -25,10 +30,19 @@ const IndexPage = ({ data }) => {
        </div>
       ))}
       </div>
-      <div tw="h-screen overflow-scroll">
+      <div css={[tw`h-screen overflow-scroll`, css`background-color: ${data.allDatoCmsWork.edges[currentPage].node.bgColor?.hex}`]}>
         <div tw="w-auto h-auto" id="top">
-          <ReactPlayer url="https://vimeo.com/409560278" width="100%" />
-          {data.allDatoCmsWork.edges[currentPage].node.title}
+          <StyledVideo>
+            <ReactPlayer url={data.allDatoCmsWork.edges[currentPage].node?.url} />
+          </StyledVideo>
+          <div tw="pt-5 pl-5">
+            <p>
+              {data.allDatoCmsWork.edges[currentPage].node.title}
+              {data.allDatoCmsWork.edges[currentPage].node.duration}
+              {data.allDatoCmsWork.edges[currentPage].node.commissionedBy}
+              {data.allDatoCmsWork.edges[currentPage].node.description}
+            </p>
+          </div>
           <Img fluid={data.allDatoCmsWork.edges[currentPage].node.coverImage.fluid} />
           {data.allDatoCmsWork.edges[currentPage].node.gallery.map(({ fluid }) => (
               <img alt={data.allDatoCmsWork.edges[currentPage].node.title} key={fluid.src} src={fluid.src} />
@@ -48,6 +62,12 @@ export const query = graphql`
         node {
           id
           title
+          duration
+          commissionedBy
+          url
+          bgColor {
+            hex
+          }
           gallery {
             fluid(maxWidth: 200, imgixParams: { fm: "jpg", auto: "compress" }) {
               src
