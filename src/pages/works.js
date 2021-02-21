@@ -1,17 +1,13 @@
 import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
-import ReactPlayer from 'react-player'
 
 import scrollTo from 'gatsby-plugin-smoothscroll';
 
 import Layout from "../components/layout"
 import tw, { css } from 'twin.macro'
-import styled from 'styled-components'
 
-export const StyledVideo = styled.div`
-  position: relative;
-`;
+import { getVideo } from '../utils/video'
 
 const About = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -32,9 +28,7 @@ const About = ({ data }) => {
       </div>
       <div css={[tw`h-screen overflow-scroll`, css`background-color: ${data.allDatoCmsWork.edges[currentPage].node.bgColor?.hex}`]}>
         <div tw="w-auto h-auto" id="top">
-          <StyledVideo>
-            <ReactPlayer url={data.allDatoCmsWork.edges[currentPage].node?.url} />
-          </StyledVideo>
+        <div dangerouslySetInnerHTML={{ __html: getVideo(data.allDatoCmsWork.edges[currentPage].node.vimeo?.providerUid) }} />
           <div tw="pt-5 pl-5">
             <p>
               {data.allDatoCmsWork.edges[currentPage].node.title}
@@ -63,6 +57,9 @@ export const query = graphql`
           id
           title
           duration
+          vimeo {
+            providerUid
+          }
           commissionedBy
           url
           bgColor {
