@@ -62,9 +62,9 @@ export default function JobsGrid({jobs, title, noYear = false}) {
 										</div>
 									</td>
 									<td>
-										<div>{job.work} {job?.place} {job?.commission}</div>
+										<div>{job.work} {job?.place} {job?.commission} {job?.qualification} </div>
 									</td>
-									<td>{job?.country}</td>
+									<td>{job?.country} {job?.premiere}</td>
 								</tr>)
 							)
 						}

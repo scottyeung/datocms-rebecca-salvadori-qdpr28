@@ -5,7 +5,7 @@ import Layout from "../components/layout"
 import JobsGrid from '../components/JobsGrid'
 import 'twin.macro'
 
-const IndexPage = ({ data: {about, features, screenings, shorts } }) => (
+const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali } }) => (
   <Layout>
     <HelmetDatoCms seo={about.seoMetaTags} />
     <div tw="grid grid-cols-2 bg-red-500">
@@ -16,6 +16,9 @@ const IndexPage = ({ data: {about, features, screenings, shorts } }) => (
       <JobsGrid jobs={features} title='Features / Publications' noYear />
       <JobsGrid jobs={screenings} title='Screenings / Installations / Exhibitions' />
       <JobsGrid jobs={shorts} title={"Selected Short Documentaries\nDirector | Editor"} />
+      <JobsGrid jobs={docs} title={"Selected Documentary\nDirector, Editor"} />
+      <JobsGrid jobs={mv} title={"Selected Music Videos\nDirector, Editor"} />
+      <JobsGrid jobs={quali} title={"Academic Qualifications"} />
       </div>
       <div>
       </div>
@@ -73,6 +76,27 @@ export const query = graphql`
         year
         work
         commission
+      }
+    }
+    docs: allDatoCmsSelectedDoc {
+      nodes {
+        year
+        work
+        premiere
+      }
+    }
+    mv: allDatoCmsSelectedMv {
+      nodes {
+        year
+        work
+        premiere
+      }
+    }
+    quali: allDatoCmsAcademicQualification {
+      nodes {
+        year
+        qualification
+        place
       }
     }
   }
