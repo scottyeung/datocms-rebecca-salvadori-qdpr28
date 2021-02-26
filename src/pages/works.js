@@ -16,15 +16,47 @@ const About = ({ data }) => {
   <Layout>
     <div tw="grid grid-cols-2 bg-green-400">
       <div tw="h-screen overflow-scroll bg-white pt-10 px-2">
-      {data.allDatoCmsWork.edges.map(({ node: work }, idx) => (
-       <div key={idx} tw="cursor-pointer" onClick={()=>{
-          scrollTo('#top', 'start')
-          setCurrentPage(idx);
+        <div tw="pb-2">
+        <table tw="min-w-full divide-y divide-gray-400 table-fixed">
+        <thead>
+          <tr tw="opacity-0">
+            <th tw="w-1/12"></th>
+            <th tw="w-1/6"></th>
+            <th tw="w-1/6"></th>
+          </tr>
+        </thead>
+          <tbody tw="bg-white divide-y divide-gray-400 border-t-2 border-b-2">
+          <tr tw="border-b border-gray-400">
+            <td>
+              <div tw="w-10">
+              </div>
+            </td>
+            <td tw="py-10 whitespace-pre-wrap">
+            </td>
+            <td></td>
+          </tr>
+        {
+          data.allDatoCmsWork.edges.map(({ node: job }, idx) => (
+            <tr tw="border-none" key={idx} tw="cursor-pointer" onClick={()=>{
+              scrollTo('#top', 'start')
+              setCurrentPage(idx);
+            }
+           }>
+              <td>
+                <div tw="w-10">
+                  {job.year}
+                </div>
+              </td>
+              <td>
+                <div>{job?.title} {job?.description} </div>
+              </td>
+              <td>Commissioned by {job?.commissionedBy}{'\n'}Produced by {job?.produced}</td>
+            </tr>)
+          )
         }
-       }>
-         {work.title}
-       </div>
-      ))}
+        </tbody>
+        </table>
+      </div>
       </div>
       <div css={[tw`h-screen overflow-scroll`, css`background-color: ${data.allDatoCmsWork.edges[currentPage].node.bgColor?.hex}`]}>
         <div tw="w-auto h-auto" id="top">
@@ -55,8 +87,10 @@ export const query = graphql`
       edges {
         node {
           id
+          year
           title
           duration
+          produced
           vimeo {
             providerUid
           }
