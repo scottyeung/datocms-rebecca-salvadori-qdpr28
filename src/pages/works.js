@@ -25,19 +25,10 @@ const About = ({ data }) => {
             <th tw="w-1/6"></th>
           </tr>
         </thead>
-          <tbody tw="bg-white divide-y divide-gray-400 border-t-2 border-b-2">
-          <tr tw="border-b border-gray-400">
-            <td>
-              <div tw="w-10">
-              </div>
-            </td>
-            <td tw="py-10 whitespace-pre-wrap">
-            </td>
-            <td></td>
-          </tr>
+          <tbody tw="bg-white">
         {
           data.allDatoCmsWork.edges.map(({ node: job }, idx) => (
-            <tr tw="border-none" key={idx} tw="cursor-pointer" onClick={()=>{
+            <tr tw="divide-y divide-gray-400 border-t-2 border-b-2" key={idx} tw="cursor-pointer" onClick={()=>{
               scrollTo('#top', 'start')
               setCurrentPage(idx);
             }
