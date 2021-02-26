@@ -41,7 +41,7 @@ const About = ({ data }) => {
               <td>
                 <div>{job?.title} {job?.description} </div>
               </td>
-              <td>Commissioned by {job?.commissionedBy}{'\n'}Produced by {job?.produced}</td>
+              <td tw="whitespace-pre-wrap">{`Commissioned by ${job?.commissionedBy}\nProduced by ${job?.produced}`}</td>
             </tr>)
           )
         }
@@ -52,13 +52,9 @@ const About = ({ data }) => {
       <div css={[tw`h-screen overflow-scroll`, css`background-color: ${data.allDatoCmsWork.edges[currentPage].node.bgColor?.hex}`]}>
         <div tw="w-auto h-auto" id="top">
         <div dangerouslySetInnerHTML={{ __html: getVideo(data.allDatoCmsWork.edges[currentPage].node.vimeo?.providerUid) }} />
-          <div tw="pt-5 pl-5">
-            <p>
-              {data.allDatoCmsWork.edges[currentPage].node.title}
-              {data.allDatoCmsWork.edges[currentPage].node.duration}
-              {data.allDatoCmsWork.edges[currentPage].node.commissionedBy}
-              {data.allDatoCmsWork.edges[currentPage].node.description}
-            </p>
+          <div tw="whitespace-pre-wrap">
+          {`${data.allDatoCmsWork.edges[currentPage].node.title}\n${data.allDatoCmsWork.edges[currentPage].node.duration}\n${data.allDatoCmsWork.edges[currentPage].node.commissionedBy}\n${data.allDatoCmsWork.edges[currentPage].node.description}`}
+        
           </div>
           <Img fluid={data.allDatoCmsWork.edges[currentPage].node.coverImage.fluid} />
           {data.allDatoCmsWork.edges[currentPage].node.gallery.map(({ fluid }) => (
