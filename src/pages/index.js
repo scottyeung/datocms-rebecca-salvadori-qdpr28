@@ -5,7 +5,14 @@ import Layout from "../components/layout"
 import JobsGrid from '../components/JobsGrid'
 import 'twin.macro'
 
-const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali } }) => (
+import {
+  isBrowser,
+  isMobile
+} from "react-device-detect";
+
+const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali } }) => {
+  
+  return !isMobile ? (
   <Layout>
     <HelmetDatoCms seo={about.seoMetaTags} />
     <div tw="grid grid-cols-2 bg-red-500">
@@ -24,7 +31,14 @@ const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali
       </div>
     </div>
   </Layout>
-)
+  ): (
+    <Layout>
+      <div>
+        Duh
+      </div>
+    </Layout>
+  )
+}
 
 export default IndexPage
 
