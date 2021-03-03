@@ -14,7 +14,7 @@ import {
 
 const Header = tw.div`flex flex-row justify-start p-0 md:w-1/2 sm:w-full`
 const Sidebar = tw.div`flex flex-row md:w-1/2 md:fixed w-full md:w-min sm:justify-between`
-const Container = tw.div`flex flex-col`
+const Container = tw.div`flex flex-col px-2 md:px-0`
 const Menu = tw.ul`flex flex-row px-2 justify-between w-full`
 
 const CustomGlobalStyles = createGlobalStyle`
@@ -65,7 +65,7 @@ const TemplateWrapper = ({ children }) => {
             favicon={data.datoCmsSite.faviconMetaTags}
             seo={data.datoCmsHome.seoMetaTags}
           />
-            <div css={isMobile && tw`bg-yellow-500`}>
+            <div css={isMobile && tw`bg-yellow-500 min-h-screen`}>
               <Header>
                 <Sidebar>
                   <Menu>
