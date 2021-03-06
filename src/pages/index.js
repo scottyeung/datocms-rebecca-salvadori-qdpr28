@@ -10,12 +10,19 @@ import {
 } from "react-device-detect";
 
 const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali } }) => {
+  
+  const [mobile, setMobile] = useState()
+
+  useEffect(() => {
+    setMobile(isMobile)
+  }, [setMobile])
+  
 
   return (
-      !isMobile ?
-        (<Layout>
+      !mobile ?
+        <Layout>
         <HelmetDatoCms seo={about.seoMetaTags} />
-        <div tw="grid grid-cols-2 bg-red-500">
+        <div tw="md:grid md:grid-cols-2 md:bg-red-500">
           <div tw="h-screen overflow-scroll bg-white pt-10 px-2">
           <div tw="py-10">
             email: <a href={`mailto:${about.eMail}`}>{about.eMail}</a> 
@@ -30,8 +37,8 @@ const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali
           <div>
           </div>
         </div>
-      </Layout>) : 
-      (<Layout tw="overflow-scroll">
+      </Layout> : 
+      <Layout tw="overflow-scroll">
         <div tw="py-10">
           <a href={`mailto:${about.eMail}`}>{about.eMail}</a>
           <JobsGrid jobs={features} title='Features / Publications' noYear />
@@ -41,7 +48,7 @@ const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali
           <JobsGrid jobs={mv} title={"Selected Music Videos\nDirector, Editor"} />
           <JobsGrid jobs={quali} title={"Academic Qualifications"} />
         </div>
-      </Layout>)
+      </Layout>
   )
 }
 
