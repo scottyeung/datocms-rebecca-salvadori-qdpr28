@@ -6,7 +6,6 @@ import JobsGrid from '../components/JobsGrid'
 import 'twin.macro'
 
 import {
-  isBrowser,
   isMobile
 } from "react-device-detect";
 
@@ -32,9 +31,15 @@ const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali
     </div>
   </Layout>
   ): (
-    <Layout>
-      <div>
-        Duh
+    <Layout tw="overflow-scroll">
+      <div tw="py-10">
+        <a href={`mailto:${about.eMail}`}>{about.eMail}</a>
+        <JobsGrid jobs={features} title='Features / Publications' noYear />
+        <JobsGrid jobs={screenings} title='Screenings / Installations / Exhibitions' />
+        <JobsGrid jobs={shorts} title={"Selected Short Documentaries\nDirector | Editor"} />
+        <JobsGrid jobs={docs} title={"Selected Documentary\nDirector, Editor"} />
+        <JobsGrid jobs={mv} title={"Selected Music Videos\nDirector, Editor"} />
+        <JobsGrid jobs={quali} title={"Academic Qualifications"} />
       </div>
     </Layout>
   )

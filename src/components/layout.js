@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-has-content, jsx-a11y/anchor-is-valid*/
 
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "gatsby";
 import { StaticQuery, graphql } from "gatsby";
 import { HelmetDatoCms } from "gatsby-source-datocms";
@@ -14,12 +14,15 @@ import {
 
 const Header = tw.div`flex flex-row justify-start p-0 md:w-1/2 sm:w-full`
 const Sidebar = tw.div`flex flex-row md:w-1/2 md:fixed w-full md:w-min sm:justify-between`
-const Container = tw.div`flex flex-col px-2 md:px-0`
+const Container = tw.div`flex flex-col px-2 pt-20 md:pt-0 md:px-0`
 const Menu = tw.ul`flex flex-row px-2 justify-between w-full`
 
 const CustomGlobalStyles = createGlobalStyle`
   body {
-    ${tw`overflow-hidden border-gray-900`}
+    ${tw`overflow-scroll md:overflow-hidden border-gray-900`}
+  }
+  .customLink {
+    ${tw`mt-6 md:mt-0`}
   }
 `;
 
@@ -35,6 +38,9 @@ const TemplateWrapper = ({ children }) => {
             faviconMetaTags {
               ...GatsbyDatoCmsFaviconMetaTags
             }
+          }
+          datoCmsAboutPage { 
+            eMail
           }
           datoCmsHome {
             seoMetaTags {
@@ -69,10 +75,10 @@ const TemplateWrapper = ({ children }) => {
               <Header>
                 <Sidebar>
                   <Menu>
-                    <li tw="md:mr-5 underline">
+                    <li tw="md:mr-5 text-4xl md:text-base underline">
                       <Link to="/works">Works</Link>
                     </li>
-                    <li tw="md:mr-5 underline">
+                    <li tw="md:mr-5 text-4xl md:text-base underline">
                       <Link to="/">CV</Link>
                     </li>
                   </Menu>

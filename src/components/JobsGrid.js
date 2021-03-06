@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactTextFormat from 'react-text-format';
 import 'twin.macro'
+import { isMobile } from 'react-device-detect'
 
 const customLinkDecorator = (
 	decoratedHref,
@@ -14,6 +15,7 @@ const customLinkDecorator = (
 			target={linkTarget}
 			rel='noopener'
 			className='customLink'
+			tw="sm:mb-3 md:mb-0"
 		>
 			{decoratedText}
 		</a>
@@ -34,20 +36,23 @@ export default function JobsGrid({jobs, title, noYear = false}) {
 			grouped ? grouped.reverse().map((item, idx) => {
 				return (
 					<div key={idx} tw="pb-2">
-						<table key={idx} tw="min-w-full divide-y divide-gray-400 table-fixed">
+						<table key={idx} tw="min-w-full divide-y divide-black md:divide-gray-400 table-fixed">
 						<thead>
 							<tr tw="opacity-0">
-								<th tw="w-1/12"></th>
-								<th tw="w-1/2"></th>
+								{!isMobile && <th tw="w-1/12"></th>}
+								<th tw="w-1/3 md:w-1/2"></th>
 								<th tw="w-1/12"></th>
 							</tr>
 						</thead>
-							<tbody tw="bg-white divide-y divide-gray-400 border-t-2 border-b-2">
-							{idx === 0 && (<tr tw="border-b border-gray-400">
-								<td>
-									<div tw="w-10">
-									</div>
-								</td>
+							<tbody tw="md:bg-white divide-y divide-black md:divide-gray-400 border-t-2 border-b-2">
+							{idx === 0 && (<tr tw="border-b border-black md:border-gray-400">
+								{
+									!isMobile &&
+									<td>
+										<div tw="w-10">
+										</div>
+									</td>
+								}
 								<td tw="py-10 whitespace-pre-wrap">
 								{title}
 								</td>
@@ -56,15 +61,18 @@ export default function JobsGrid({jobs, title, noYear = false}) {
 						{
 							item.map((job, idx) => (
 								<tr tw="border-none">
-									<td>
-										<div tw="w-10">
-											{idx === 0 && job.year}
-										</div>
-									</td>
-									<td>
+										{
+											!isMobile &&
+											<td>
+											<div tw="w-10">
+												{idx === 0 && job.year}
+											</div>
+											</td>
+										}
+									<td tw="pb-6 md:pb-0">
 										<div>{job.work} {job?.place} {job?.commission} {job?.qualification} </div>
 									</td>
-									<td>{job?.country} {job?.premiere}</td>
+									<td tw="align-top md:align-baseline text-right md:text-left">{job?.country} {job?.premiere}</td>
 								</tr>)
 							)
 						}
@@ -74,40 +82,46 @@ export default function JobsGrid({jobs, title, noYear = false}) {
 				)
 			}) : (
 				<>
-				<table tw="min-w-full divide-y divide-gray-400 table-fixed">
+				<table tw="min-w-full divide-y divide-black md:divide-gray-400 table-fixed">
 				<thead>
 					<tr tw="opacity-0">
-						<th tw="w-1/12"></th>
-						<th tw="w-1/2"></th>
-						<th tw="w-1/12"></th>
+						{!isMobile && <th tw="w-1/12"></th>}
+						<th tw="w-1/2 md:w-1/2"></th>
+						<th tw="w-1/2 md:w-1/12"></th>
 					</tr>
 				</thead>
-				<tbody tw="bg-white divide-y divide-gray-400 border-t-2 border-b-2">
+				<tbody tw="md:bg-white divide-y divide-black md:divide-gray-400 border-t-2 border-b-2">
 					<tr>
-						<td>
-							<div tw="w-10">
-							</div>
-						</td>
+						{
+							!isMobile &&
+							<td>
+								<div tw="w-10">
+								</div>
+							</td>
+						}
 						<td tw="py-10">
 						{title}
 						</td>
 						<td></td>
 					</tr>
 				{jobs.nodes.map((job, idx) => (
-					<tr>
+					<tr key={idx}>
+					{
+						!isMobile &&
+						<td>
+							<div tw="w-10">
+								{idx === 0 && job.year}
+							</div>
+						</td>
+					}
 					<td>
-						<div tw="w-10">
-							{idx === 0 && job.year}
-						</div>
-					</td>
-					<td>
-						<div>
+						<div tw="max-w-3/4">
 						<ReactTextFormat linkDecorator={customLinkDecorator}>
 							{job.title}
 						</ReactTextFormat>
 						</div>
 					</td>
-					<td></td>
+					<td tw="align-top text-right md:text-left">1212</td>
 				</tr>
 				))}
 				</tbody>

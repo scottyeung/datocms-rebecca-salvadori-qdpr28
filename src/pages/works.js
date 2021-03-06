@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { graphql } from 'gatsby'
+import { Link, graphql, navigate } from 'gatsby'
 import Img from 'gatsby-image'
 
 import scrollTo from 'gatsby-plugin-smoothscroll';
@@ -9,15 +9,51 @@ import tw, { css } from 'twin.macro'
 
 import { getVideo } from '../utils/video'
 
+import { isMobile } from 'react-device-detect'
+
 const About = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(0);
+
+  if(isMobile) {
+    return (
+      <Layout>
+        <table tw="min-w-full divide-y md:divide-gray-400 table-fixed">
+        <thead>
+          <tr tw="opacity-0">
+            <th tw="w-3/6"></th>
+            <th tw="w-1/6"></th>
+          </tr>
+        </thead>
+          <tbody tw="bg-transparent">
+        {
+          data.allDatoCmsWork.edges.map(({ node: job }, idx) => (
+            <tr tw="divide-y md:divide-gray-400 border-t-2 border-b-2" key={idx} tw="cursor-pointer" onClick={() => navigate(`/works/${job.slug}`)}>
+              <td tw="align-top">
+              <Link to={`/works/${job.slug}`} tw="no-underline">
+                <div tw="text-4xl">{job?.title} {job?.description} </div>
+              </Link>
+              </td>
+              <td tw="whitespace-pre-wrap align-top text-right pb-20 pt-0.5">
+                <Link to={`/works/${job.slug}`} tw="no-underline">
+                {`${job?.year}\n`}
+                </Link>
+              </td>
+            </tr>
+            )
+          )
+        }
+        </tbody>
+        </table>
+      </Layout>
+    ) 
+  }
 
   return (
   <Layout>
     <div tw="grid grid-cols-2 bg-green-400">
       <div tw="h-screen overflow-scroll bg-white pt-10 px-2">
         <div tw="pb-2">
-        <table tw="min-w-full divide-y divide-gray-400 table-fixed">
+        <table tw="min-w-full divide-y md:divide-gray-400 table-fixed">
         <thead>
           <tr tw="opacity-0">
             <th tw="w-1/12"></th>
@@ -28,7 +64,7 @@ const About = ({ data }) => {
           <tbody tw="bg-white">
         {
           data.allDatoCmsWork.edges.map(({ node: job }, idx) => (
-            <tr tw="divide-y divide-gray-400 border-t-2 border-b-2" key={idx} tw="cursor-pointer" onClick={()=>{
+            <tr tw="divide-y md:divide-gray-400 border-t-2 border-b-2" key={idx} tw="cursor-pointer" onClick={()=>{
               scrollTo('#top', 'start')
               setCurrentPage(idx);
             }
