@@ -23,7 +23,7 @@ const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali
         <Layout>
         <HelmetDatoCms seo={about.seoMetaTags} />
         <div tw="md:grid md:grid-cols-2 md:bg-red-500">
-          <div tw="h-screen overflow-scroll bg-white pt-10 px-2">
+          <div tw="md:h-screen md:overflow-scroll md:bg-white md:pt-10 md:px-2">
           <div tw="py-10">
             email: <a href={`mailto:${about.eMail}`}>{about.eMail}</a> 
           </div>
