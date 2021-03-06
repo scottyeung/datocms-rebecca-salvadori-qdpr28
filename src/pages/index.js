@@ -6,7 +6,7 @@ import JobsGrid from '../components/JobsGrid'
 import 'twin.macro'
 
 import {
-  isMobile, BrowserView, MobileOnlyView
+  isMobile
 } from "react-device-detect";
 
 const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali } }) => {
