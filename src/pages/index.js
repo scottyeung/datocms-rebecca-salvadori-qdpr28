@@ -11,10 +11,16 @@ import {
 
 const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali } }) => {
   
+  const [mobile, setMobile] = useState()
+
+  useEffect(() => {
+    setMobile(isMobile)
+  }, [setMobile])
+  
+
   return (
-  <>
-    <BrowserView>
-      <Layout>
+      !mobile ?
+        <Layout>
         <HelmetDatoCms seo={about.seoMetaTags} />
         <div tw="grid grid-cols-2 bg-red-500">
           <div tw="h-screen overflow-scroll bg-white pt-10 px-2">
@@ -31,9 +37,7 @@ const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali
           <div>
           </div>
         </div>
-      </Layout>
-    </BrowserView>
-    <MobileOnlyView>
+      </Layout> : 
       <Layout tw="overflow-scroll">
         <div tw="py-10">
           <a href={`mailto:${about.eMail}`}>{about.eMail}</a>
@@ -45,8 +49,6 @@ const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali
           <JobsGrid jobs={quali} title={"Academic Qualifications"} />
         </div>
       </Layout>
-    </MobileOnlyView>
-    </>
   )
 }
 
