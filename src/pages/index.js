@@ -37,8 +37,10 @@ const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali
         </div>
       </Layout> : 
       <Layout tw="overflow-scroll">
-        <div tw="py-10 px-2">
-          <a href={`mailto:${about.eMail}`}>{about.eMail}</a>
+        <div tw="pt-2 px-2">
+          <div tw="py-10">
+            <a href={`mailto:${about.eMail}`} tw="text-xl underline">{about.eMail}</a>
+          </div>
           <JobsGrid jobs={features} title='Features / Publications' noYear />
           <JobsGrid jobs={screenings} title='Screenings / Installations / Exhibitions' />
           <JobsGrid jobs={shorts} title={"Selected Short Documentaries\nDirector | Editor"} />
