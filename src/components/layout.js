@@ -92,7 +92,7 @@ const TemplateWrapper = ({ location, children }) => {
                   </Menu>
                 </Sidebar>
               </Header>
-              <Container>
+              <Container css={location === 'works' && tw`pt-10`}>
                 {children}
               </Container>
             </div>
