@@ -53,7 +53,7 @@ export default function JobsGrid({jobs, title, noYear = false}) {
 										</div>
 									</td>
 								}
-								<td tw="py-10 whitespace-pre-wrap">
+								<td tw="py-10 whitespace-pre-wrap px-10">
 								{title}
 								</td>
 								<td></td>
@@ -99,7 +99,7 @@ export default function JobsGrid({jobs, title, noYear = false}) {
 								</div>
 							</td>
 						}
-						<td tw="py-10">
+						<td tw="py-10 px-10">
 						{title}
 						</td>
 						<td></td>
