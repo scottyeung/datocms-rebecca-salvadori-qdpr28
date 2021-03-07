@@ -15,8 +15,8 @@ const About = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(0);
 
     return isMobile ?
-      <Layout>
-        <table tw="min-w-full divide-y md:divide-gray-400 table-fixed">
+      <Layout location="works">
+        <table tw="min-w-full divide-y md:divide-black table-fixed">
         <thead>
           <tr tw="opacity-0">
             <th tw="w-3/6"></th>
@@ -26,7 +26,7 @@ const About = ({ data }) => {
           <tbody tw="bg-transparent">
         {
           data.allDatoCmsWork.edges.map(({ node: job }, idx) => (
-            <tr tw="divide-y md:divide-gray-400 border-t-2 border-b-2" key={idx} tw="cursor-pointer" onClick={() => navigate(`/works/${job.slug}`)}>
+            <tr tw="divide-y md:divide-black border-t-2 border-b-2" key={idx} tw="cursor-pointer" onClick={() => navigate(`/works/${job.slug}`)}>
               <td tw="align-top">
               <Link to={`/works/${job.slug}`} tw="no-underline">
                 <div tw="text-4xl">{job?.title} {job?.description} </div>
@@ -34,7 +34,7 @@ const About = ({ data }) => {
               </td>
               <td tw="whitespace-pre-wrap align-top text-right pb-20 pt-0.5">
                 <Link to={`/works/${job.slug}`} tw="no-underline">
-                {`${job?.year}\n`}
+                {`${job?.year}\n${job?.format}`}
                 </Link>
               </td>
             </tr>
@@ -48,7 +48,7 @@ const About = ({ data }) => {
         <div tw="grid grid-cols-2 bg-green-400">
           <div tw="h-screen overflow-scroll bg-white pt-10 px-2">
             <div tw="pb-2">
-            <table tw="min-w-full divide-y md:divide-gray-400 table-fixed">
+            <table tw="min-w-full divide-y md:divide-black table-fixed">
             <thead>
               <tr tw="opacity-0">
                 <th tw="w-1/12"></th>
@@ -59,7 +59,7 @@ const About = ({ data }) => {
               <tbody tw="bg-white">
             {
               data.allDatoCmsWork.edges.map(({ node: job }, idx) => (
-                <tr tw="divide-y md:divide-gray-400 border-t-2 border-b-2" key={idx} tw="cursor-pointer" onClick={()=>{
+                <tr tw="divide-y md:divide-black border-t-2 border-b-2" key={idx} tw="cursor-pointer" onClick={()=>{
                   scrollTo('#top', 'start')
                   setCurrentPage(idx);
                 }
@@ -108,6 +108,7 @@ export const query = graphql`
           id
           year
           title
+          format
           duration
           produced
           vimeo {

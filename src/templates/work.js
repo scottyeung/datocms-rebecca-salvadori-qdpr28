@@ -4,12 +4,14 @@ import { HelmetDatoCms } from 'gatsby-source-datocms'
 import Img from 'gatsby-image'
 import { graphql } from 'gatsby'
 import Layout from "../components/layout"
+import { getVideo } from '../utils/video'
 
 export default ({ data }) => (
-  <Layout>
+  <Layout location="works">
     <article className="sheet">
       <HelmetDatoCms seo={data.datoCmsWork.seoMetaTags} />
       <div className="sheet__inner">
+        <div dangerouslySetInnerHTML={{ __html: getVideo(data.datoCmsWork.vimeo?.providerUid) }} />
         <h1 className="sheet__title">{data.datoCmsWork.title}</h1>
         <p className="sheet__lead">{data.datoCmsWork.excerpt}</p>
         <div className="sheet__slider">
@@ -41,6 +43,9 @@ export const query = graphql`
       }
       title
       excerpt
+      vimeo {
+        providerUid
+      }
       gallery {
         fluid(maxWidth: 200, imgixParams: { fm: "jpg", auto: "compress" }) {
           src

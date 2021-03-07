@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactTextFormat from 'react-text-format';
-import 'twin.macro'
+import tw from 'twin.macro'
 import { isMobile } from 'react-device-detect'
 
 const customLinkDecorator = (
@@ -60,7 +60,7 @@ export default function JobsGrid({jobs, title, noYear = false}) {
 							</tr>)}
 						{
 							item.map((job, idx) => (
-								<tr tw="border-none">
+								<tr css={["border-none", idx !== 0 && tw`border-black`]}>
 										{
 											!isMobile &&
 											<td>
@@ -86,8 +86,8 @@ export default function JobsGrid({jobs, title, noYear = false}) {
 				<thead>
 					<tr tw="opacity-0">
 						{!isMobile && <th tw="w-1/12"></th>}
-						<th tw="w-1/2 md:w-1/2"></th>
-						<th tw="w-1/2 md:w-1/12"></th>
+						<th tw="w-1/3 md:w-1/2"></th>
+						<th tw="w-1/12 md:w-1/12"></th>
 					</tr>
 				</thead>
 				<tbody tw="md:bg-white divide-y divide-black md:divide-gray-400 border-t-2 border-b-2">
@@ -115,13 +115,13 @@ export default function JobsGrid({jobs, title, noYear = false}) {
 						</td>
 					}
 					<td>
-						<div tw="max-w-3/4">
+						<div tw="pb-6">
 						<ReactTextFormat linkDecorator={customLinkDecorator}>
 							{job.title}
 						</ReactTextFormat>
 						</div>
 					</td>
-					<td tw="align-top text-right md:text-left">1212</td>
+					<td tw="align-top text-right md:text-left">{`${job?.year}\nInterview`}</td>
 				</tr>
 				))}
 				</tbody>

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-has-content, jsx-a11y/anchor-is-valid*/
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "gatsby";
 import { StaticQuery, graphql } from "gatsby";
 import { HelmetDatoCms } from "gatsby-source-datocms";
@@ -8,7 +8,6 @@ import { createGlobalStyle } from "styled-components";
 import tw, { GlobalStyles } from 'twin.macro'
 
 import {
-  isBrowser,
   isMobile
 } from "react-device-detect";
 
@@ -20,13 +19,22 @@ const Menu = tw.ul`flex flex-row px-2 justify-between w-full`
 const CustomGlobalStyles = createGlobalStyle`
   body {
     ${tw`overflow-scroll md:overflow-hidden border-gray-900`}
+    font-family: "Times New Roman";
   }
   .customLink {
     ${tw`mt-6 md:mt-0`}
   }
 `;
 
-const TemplateWrapper = ({ children }) => {
+const TemplateWrapper = ({ location, children }) => {
+  const [bg, setBg] = useState(tw`bg-primary text-black min-h-screen`)
+
+  useEffect(() => {
+    if(location === 'works') {
+      setBg(tw`bg-works text-white min-h-screen`)
+    }
+  },[location])
+
   return (
     <StaticQuery
       query={graphql`
@@ -71,7 +79,7 @@ const TemplateWrapper = ({ children }) => {
             favicon={data.datoCmsSite.faviconMetaTags}
             seo={data.datoCmsHome.seoMetaTags}
           />
-            <div css={isMobile && tw`bg-yellow-500 min-h-screen`}>
+            <div css={isMobile && bg}>
               <Header>
                 <Sidebar>
                   <Menu>

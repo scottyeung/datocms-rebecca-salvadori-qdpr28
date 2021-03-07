@@ -10,17 +10,15 @@ import {
 } from "react-device-detect";
 
 const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali } }) => {
-  
   const [mobile, setMobile] = useState()
 
   useEffect(() => {
     setMobile(isMobile)
   }, [setMobile])
-  
 
   return (
       !mobile ?
-        <Layout>
+        <Layout location="index">
         <HelmetDatoCms seo={about.seoMetaTags} />
         <div tw="md:grid md:grid-cols-2 md:bg-red-500">
           <div tw="md:h-screen md:overflow-scroll md:bg-white md:pt-10 md:px-2">
@@ -53,28 +51,6 @@ const IndexPage = ({ data: {about, features, screenings, shorts, docs, mv, quali
 }
 
 export default IndexPage
-
-// export const query = graphql`
-//   query AboutQuery {
-//     about: datoCmsAboutPage {
-//       seoMetaTags {
-//         ...GatsbyDatoCmsSeoMetaTags
-//       }
-//       title
-//       subtitle
-//       photo {
-//         fluid(maxWidth: 600, imgixParams: { fm: "jpg", auto: "compress" }) {
-//           ...GatsbyDatoCmsSizes
-//         }
-//       }
-//       bioNode {
-//         childMarkdownRemark {
-//           html
-//         }
-//       }
-//     }
-//   }
-// `
 
 export const query = graphql`
   query IndexQuery {
@@ -142,3 +118,26 @@ export const query = graphql`
     }}
   />
 </div> */}
+
+
+// export const query = graphql`
+//   query AboutQuery {
+//     about: datoCmsAboutPage {
+//       seoMetaTags {
+//         ...GatsbyDatoCmsSeoMetaTags
+//       }
+//       title
+//       subtitle
+//       photo {
+//         fluid(maxWidth: 600, imgixParams: { fm: "jpg", auto: "compress" }) {
+//           ...GatsbyDatoCmsSizes
+//         }
+//       }
+//       bioNode {
+//         childMarkdownRemark {
+//           html
+//         }
+//       }
+//     }
+//   }
+// `
