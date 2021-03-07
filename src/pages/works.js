@@ -89,7 +89,7 @@ const About = ({ data }) => {
               </div>
               <Img fluid={data.allDatoCmsWork.edges[currentPage].node.coverImage.fluid} />
               {data.allDatoCmsWork.edges[currentPage].node.gallery.map(({ fluid }) => (
-                  <img alt={data.allDatoCmsWork.edges[currentPage].node.title} key={fluid.src} src={fluid.src} />
+                  <img alt={data.allDatoCmsWork.edges[currentPage].node.title} key={fluid.src} src={fluid.src} tw="w-full"/>
               ))}
             </div>
           </div>

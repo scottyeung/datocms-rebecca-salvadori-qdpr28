@@ -5,25 +5,34 @@ import { graphql } from 'gatsby'
 import Layout from "../components/layout"
 import { getVideo } from '../utils/video'
 
+import 'twin.macro'
+
 export default ({ data }) => (
   <Layout location="works">
     <article className="sheet">
       <HelmetDatoCms seo={data.datoCmsWork.seoMetaTags} />
       <div className="sheet__inner">
         <div dangerouslySetInnerHTML={{ __html: getVideo(data.datoCmsWork.vimeo?.providerUid) }} />
-        <h1 className="sheet__title">{data.datoCmsWork.title}</h1>
-        <p className="sheet__lead">{data.datoCmsWork.excerpt}</p>
+        <div tw="px-6 py-10">
+          <h1 className="sheet__title" tw="text-3xl">{data.datoCmsWork.title}</h1>
+          <div tw="text-xl">
+            <p className="sheet__lead">{data.datoCmsWork?.year} | {data.datoCmsWork?.duration}</p>
+            <p className="sheet__lead">{`Commissioned by ${data.datoCmsWork?.commissionedBy}`}</p>
+            <a className="sheet__lead" href={data.datoCmsWork?.url} tw='underline'>{data.datoCmsWork?.url}</a>
+          </div>
+        </div>
+        <div
+          className="sheet__body"
+          tw="px-2"
+          dangerouslySetInnerHTML={{
+            __html: data.datoCmsWork.descriptionNode.childMarkdownRemark.html,
+          }}
+        />
         <div className="sheet__slider">
             {data.datoCmsWork.gallery.map(({ fluid }) => (
               <img alt={data.datoCmsWork.title} key={fluid.src} src={fluid.src} />
             ))}
         </div>
-        <div
-          className="sheet__body"
-          dangerouslySetInnerHTML={{
-            __html: data.datoCmsWork.descriptionNode.childMarkdownRemark.html,
-          }}
-        />
         <div className="sheet__gallery">
           <Img fluid={data.datoCmsWork.coverImage.fluid} />
         </div>
@@ -39,6 +48,10 @@ export const query = graphql`
         ...GatsbyDatoCmsSeoMetaTags
       }
       title
+      year
+      url
+      duration
+      commissionedBy
       excerpt
       vimeo {
         providerUid
