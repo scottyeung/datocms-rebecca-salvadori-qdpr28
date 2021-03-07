@@ -27,12 +27,12 @@ const About = ({ data }) => {
         {
           data.allDatoCmsWork.edges.map(({ node: job }, idx) => (
             <tr tw="divide-y md:divide-black border-t-2 border-b-2" key={idx} tw="cursor-pointer" onClick={() => navigate(`/works/${job.slug}`)}>
-              <td tw="align-top">
+              <td tw="align-top px-2">
               <Link to={`/works/${job.slug}`} tw="no-underline">
                 <div tw="text-4xl">{job?.title} {job?.description} </div>
               </Link>
               </td>
-              <td tw="whitespace-pre-wrap align-top text-right pb-20 pt-0.5">
+              <td tw="whitespace-pre-wrap align-top text-right pb-20 pt-0.5 px-2">
                 <Link to={`/works/${job.slug}`} tw="no-underline">
                 {`${job?.year}\n${job?.format}`}
                 </Link>
